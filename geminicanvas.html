@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gemini Canvas 인터랙티브 가이드</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'YOUR_MEASUREMENT_ID');
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .active-nav {
+      color: #3b82f6;
+      border-bottom: 2px solid #3b82f6;
+      padding-bottom: 4px;
+    }
+    .feature-card.active {
+      border-color: #3b82f6;
+      box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.2);
+    }
+    .content-pane {
+      display: none;
+    }
+    .content-pane.active {
+      display: block;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+  <!-- Chosen Palette: Calm Harmony (Light Beige, Soft Blue, Dark Slate Gray) -->
+  <!-- Application Structure Plan: 이 애플리케이션은 사용자가 필요한 정보에 빠르게 접근할 수 있도록 상단 고정 내비게이션과 주제별 섹션 구조를 채택했습니다. '주요 기능' 섹션에서는 탭 형식의 인터랙티브 카드를 사용하여 각 기능(문서, 코드, 콘텐츠)에 대한 상세 정보를 동적으로 보여줍니다. 이는 선형적인 문서 구조보다 사용자의 능동적인 탐색을 유도하고, 정보를 더 쉽게 소화할 수 있도록 돕기 위함입니다. 전체적으로 사용자가 가이드를 '읽는' 경험이 아닌 '탐색하고 체험하는' 경험을 하도록 설계되었습니다. -->
+  <!-- Visualization & Content Choices: 정량적 데이터가 없어 차트는 사용하지 않았습니다. 대신, '시작하기' 섹션에서는 UI 단계를 시각적으로 표현한 다이어그램(HTML/CSS)을 사용해 정보 전달력을 높였습니다. '주요 기능'에서는 각 기능의 핵심을 아이콘과 카드로 시각화하고, 클릭 시 상세 내용이 나타나는 인터랙션을 추가했습니다. 이는 사용자의 흥미를 유발하고 복잡한 정보를 구조적으로 이해시키는 데 효과적입니다. 모든 시각적 요소는 Chart.js/Plotly/SVG/Mermaid JS 없이 순수 HTML과 Tailwind CSS로 구현되었습니다. -->
+  <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="bg-[#FDFBF6] text-[#2F4F4F]">
+
+<header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+  <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-slate-800">Gemini Canvas 가이드</h1>
+    <nav class="hidden md:flex space-x-8 font-medium text-slate-600">
+      <a href="#getting-started" class="hover:text-blue-500 transition-colors nav-link">시작하기</a>
+      <a href="#main-features" class="hover:text-blue-500 transition-colors nav-link">주요 기능</a>
+      <a href="#tips" class="hover:text-blue-500 transition-colors nav-link">활용 팁</a>
+    </nav>
+    <div class="md:hidden">
+      <select id="mobile-nav" class="bg-white border border-gray-300 rounded-md px-3 py-2">
+        <option value="#getting-started">시작하기</option>
+        <option value="#main-features">주요 기능</option>
+        <option value="#tips">활용 팁</option>
+      </select>
+    </div>
+  </div>
+</header>
+
+<main class="container mx-auto px-6 py-12">
+
+  <section id="getting-started" class="mb-20 text-center scroll-mt-20">
+    <h2 class="text-4xl font-bold mb-4 text-slate-800">캔버스 시작하기</h2>
+    <p class="text-lg text-slate-600 max-w-2xl mx-auto mb-12">Gemini Canvas는 몇 가지 간단한 단계만으로 시작할 수 있습니다. AI와 함께 아이디어를 현실로 만들어 보세요.</p>
+    <div class="bg-white rounded-xl shadow-lg p-8 max-w-4xl mx-auto">
+      <div class="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-6">
+        <div class="text-center p-4">
+          <div class="text-5xl mb-3">🌐</div>
+          <h3 class="text-xl font-semibold mb-2">1. 접속</h3>
+          <p class="text-slate-500">`gemini.google.com`에 접속하여 Gemini를 엽니다.</p>
+        </div>
+        <div class="text-2xl text-gray-300 hidden md:block">→</div>
+        <div class="text-center p-4">
+          <div class="text-5xl mb-3">➕</div>
+          <h3 class="text-xl font-semibold mb-2">2. 캔버스 선택</h3>
+          <p class="text-slate-500">프롬프트 입력창 아래 '+' 버튼을 누르고 '캔버스'를 선택합니다.</p>
+        </div>
+        <div class="text-2xl text-gray-300 hidden md:block">→</div>
+        <div class="text-center p-4">
+          <div class="text-5xl mb-3">✍️</div>
+          <h3 class="text-xl font-semibold mb-2">3. 프롬프트 입력</h3>
+          <p class="text-slate-500">원하는 작업 내용을 구체적으로 입력하여 초안을 만듭니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="border-gray-200 my-20">
+
+  <section id="main-features" class="mb-20 scroll-mt-20">
+    <h2 class="text-4xl font-bold mb-4 text-center text-slate-800">주요 기능 및 활용법</h2>
+    <p class="text-lg text-slate-600 max-w-2xl mx-auto text-center mb-12">캔버스는 문서 작성부터 코드 개발, 콘텐츠 제작까지 다양한 작업을 지원합니다. 각 기능을 탐색해 보세요.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div id="card-doc" class="feature-card active border-2 border-transparent p-6 bg-white rounded-xl cursor-pointer hover:shadow-xl transition-all duration-300">
+        <div class="flex items-center space-x-4">
+          <div class="text-3xl">📄</div>
+          <h3 class="text-xl font-bold text-slate-700">문서 작성</h3>
+        </div>
+      </div>
+      <div id="card-code" class="feature-card border-2 border-transparent p-6 bg-white rounded-xl cursor-pointer hover:shadow-xl transition-all duration-300">
+        <div class="flex items-center space-x-4">
+          <div class="text-3xl">💻</div>
+          <h3 class="text-xl font-bold text-slate-700">코드 작성</h3>
+        </div>
+      </div>
+      <div id="card-content" class="feature-card border-2 border-transparent p-6 bg-white rounded-xl cursor-pointer hover:shadow-xl transition-all duration-300">
+        <div class="flex items-center space-x-4">
+          <div class="text-3xl">🎨</div>
+          <h3 class="text-xl font-bold text-slate-700">콘텐츠 제작</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-lg p-8">
+      <div id="pane-doc" class="content-pane active">
+        <h4 class="text-2xl font-bold mb-4 text-slate-800">AI와 함께하는 스마트한 문서 작업</h4>
+        <ul class="space-y-4 text-slate-600">
+          <li class="flex items-start"><span class="mr-3 text-blue-500">✓</span><span><strong>초안 생성:</strong> 보고서, 블로그 글 등 다양한 문서의 초안을 AI가 빠르게 만들어 줍니다.</span></li>
+          <li class="flex items-start"><span class="mr-3 text-blue-500">✓</span><span><strong>실시간 수정:</strong> "더 간결하게", "전문적으로" 등 간단한 요청으로 문체의 톤과 스타일을 쉽게 변경할 수 있습니다.</span></li>
+          <li class="flex items-start"><span class="mr-3 text-blue-500">✓</span><span><strong>공동 작업:</strong> 완성된 문서를 Google Docs로 내보내 팀원들과 효율적으로 공유하고 협업할 수 있습니다.</span></li>
+        </ul>
+      </div>
+      <div id="pane-code" class="content-pane">
+        <h4 class="text-2xl font-bold mb-4 text-slate-800">아이디어를 현실로 만드는 코드 개발</h4>
+        <ul class="space-y-4 text-slate-600">
+          <li class="flex items-start"><span class="mr-3 text-blue-500">✓</span><span><strong>코드 생성:</strong> HTML, React 등 다양한 웹 코드를 AI가 신속하게 작성해 줍니다.</span></li>
+          <li class="flex items-start"><span class="mr-3 text-blue-500">✓</span><span><strong>실시간 미리보기:</strong> 생성된 코드가 웹에서 어떻게 보일지 즉시 확인하며 수정할 수 있어 개발 효율이 높아집니다.</span></li>
+          <li class="flex items-start"><span class="mr-3 text-blue-500">✓</span><span><strong>디버깅:</strong> 코드의 오류를 찾거나 더 나은 구조로 개선해 달라고 요청하여 코드 품질을 향상시킬 수 있습니다.</span></li>
+        </ul>
+      </div>
+      <div id="pane-content" class="content-pane">
+        <h4 class="text-2xl font-bold mb-4 text-slate-800">다채로운 콘텐츠 제작</h4>
+        <ul class="space-y-4 text-slate-600">
+          <li class="flex items-start"><span class="mr-3 text-blue-500">✓</span><span><strong>인포그래픽:</strong> 복잡한 보고서나 데이터를 한눈에 파악할 수 있는 시각적인 인포그래픽으로 변환합니다.</span></li>
+          <li class="flex items-start"><span class="mr-3 text-blue-500">✓</span><span><strong>퀴즈:</strong> 특정 주제에 대한 학습용 퀴즈를 생성하여 교육 자료로 활용할 수 있습니다.</span></li>
+          <li class="flex items-start"><span class="mr-3 text-blue-500">✓</span><span><strong>오디오 개요:</strong> 문서를 팟캐스트 형식의 오디오 요약본으로 만들어 이동 중에도 들을 수 있습니다. (현재 영어로만 제공)</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <hr class="border-gray-200 my-20">
+
+  <section id="tips" class="scroll-mt-20">
+    <h2 class="text-4xl font-bold mb-4 text-center text-slate-800">캔버스 활용 팁</h2>
+    <p class="text-lg text-slate-600 max-w-2xl mx-auto text-center mb-12">몇 가지 팁을 활용하여 Gemini Canvas를 더욱 효과적으로 사용해 보세요.</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="bg-white p-6 rounded-xl shadow-md">
+        <div class="text-3xl mb-3">🎯</div>
+        <h3 class="text-xl font-semibold mb-2">구체적으로 요청하기</h3>
+        <p class="text-slate-500">원하는 결과를 얻으려면 프롬프트를 최대한 구체적이고 명확하게 작성하는 것이 좋습니다.</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow-md">
+        <div class="text-3xl mb-3">💾</div>
+        <h3 class="text-xl font-semibold mb-2">자동 저장</h3>
+        <p class="text-slate-500">캔버스에서의 모든 변경 내용은 자동으로 저장되므로, 작업 내용이 사라질 걱정이 없습니다.</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow-md">
+        <div class="text-3xl mb-3">🖥️</div>
+        <h3 class="text-xl font-semibold mb-2">데스크톱 활용</h3>
+        <p class="text-slate-500">텍스트 스타일 변경이나 서식 지정 등 더 많은 기능은 데스크톱 웹 버전에서 편리하게 이용할 수 있습니다.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="bg-white mt-20">
+  <div class="container mx-auto px-6 py-8 text-center text-slate-500">
+    <p>&copy; 2025 Gemini Canvas Interactive Guide. All rights reserved. </p>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const featureCards = document.querySelectorAll('.feature-card');
+    const contentPanes = document.querySelectorAll('.content-pane');
+
+    featureCards.forEach(card => {
+      card.addEventListener('click', function() {
+        const cardId = this.id;
+        const paneId = cardId.replace('card-', 'pane-');
+
+        featureCards.forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+
+        contentPanes.forEach(p => p.classList.remove('active'));
+        document.getElementById(paneId).classList.add('active');
+      });
+    });
+
+    const mobileNav = document.getElementById('mobile-nav');
+    mobileNav.addEventListener('change', function() {
+      window.location.hash = this.value;
+    });
+
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.5
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => {
+            link.classList.remove('active-nav');
+            if (link.getAttribute('href').substring(1) === entry.target.id) {
+              link.classList.add('active-nav');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  });
+</script>
+
+</body>
+</html>
